@@ -130,3 +130,8 @@ Afterwards call getScheduledPosts for the date again and confirm both puzzle pos
 ## STEP 6 - Reply (the owner reads this)
 Post date; the Daily and question number; season and picture; the answer; the hook candidates and the one chosen; the send line;
 the captions and first comments used; the plannerUrl links; anything skipped or wrong. Never include the key.
+End with: "These stay drafts until about 12:07, when the noon task schedules them for 18:00. To hold them, edit them in Metricool
+or tell Claude to stop the auto-approve."
+
+(Since 27 Oct 2026 the owner has the posts automated: a second scheduled task, "Gist Hunt puzzle posts (noon auto-approve)",
+checks today's two 18:00 drafts at 12:07 New York time and switches them to scheduled. This task still only ever makes drafts.)
