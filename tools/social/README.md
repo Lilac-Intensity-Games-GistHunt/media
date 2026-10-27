@@ -6,9 +6,10 @@ if the feed has no question, the day is not the one expected, or the answer does
 
     python3 -I tools/social/make_post.py feed.json --out /tmp/post --expect-day 2026-12-14
 
-- `art/`: the December illustrations with their words removed, on transparent edges. The season picks the art:
+- `art/`: the autumn and December illustrations with their words removed, on transparent edges. The season picks the art:
+  Halloween → pumpkin, scarecrow or mushroom; Clocks go back → sleepy fox; Thanksgiving → harvest friends; Black Friday → squirrel;
   Hanukkah → hedgehog; Christmas → reindeer, gingerbread, tree friends or gingerbread + tree; New Year → the toast;
-  no season → the winter animals (polar bears, owl, fox). `kwanzaa_family.png` is kept but never picked.
+  no season → autumn animals (Sep–Nov) or winter animals (Dec–Feb). `kwanzaa_family.png` is kept but never picked.
   The art is AI-made, so posts carry the AI label.
 - `fonts/`: Poppins (SIL Open Font License).
 - Music: synthesised in the script, no licensed audio.

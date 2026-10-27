@@ -24,10 +24,16 @@ def font(weight, size): return ImageFont.truetype(os.path.join(HERE, 'fonts', f'
 
 # Which picture goes with which season (SOCIAL_FEED.md, December: holiday puzzles). Kwanzaa's picture is not used here:
 # the Kwanzaa post stays a greeting.
-ART = {'hanukkah': ['hanukkah_hedgehog'],
+ART = {'halloween': ['autumn_pumpkin', 'autumn_scarecrow', 'autumn_mushroom'],
+       'clocks': ['autumn_sleepy_fox'],
+       'thanksgiving': ['autumn_harvest_friends'],
+       'black friday': ['autumn_squirrel'],
+       'hanukkah': ['hanukkah_hedgehog'],
        'christmas': ['christmas_reindeer', 'christmas_gingerbread', 'christmas_tree_friends', 'christmas_gingerbread_tree'],
        'new year': ['newyear_toast'],
-       None: ['winter_polarbear_cocoa', 'winter_owl', 'winter_fox', 'winter_polarbear_lantern']}
+       # No season: autumn animals in September to November, winter animals in December to February.
+       'autumn': ['autumn_fox_path', 'autumn_hedgehog_tea', 'autumn_pumpkin', 'autumn_squirrel', 'autumn_sleepy_fox'],
+       'winter': ['winter_polarbear_cocoa', 'winter_owl', 'winter_fox', 'winter_polarbear_lantern']}
 ART_WORDS = {'hanukkah_hedgehog': 'a smiling hedgehog in a lilac scarf beside a lit menorah and a plate of doughnuts',
              'christmas_reindeer': 'a small reindeer in a lilac hat and scarf beside a wrapped gift',
              'christmas_gingerbread': 'a smiling gingerbread friend with a mug of cocoa and a gift',
@@ -36,17 +42,25 @@ ART_WORDS = {'hanukkah_hedgehog': 'a smiling hedgehog in a lilac scarf beside a 
              'newyear_toast': 'a fox and a hedgehog in party hats toasting beside a 2027 calendar',
              'winter_polarbear_cocoa': 'a polar bear in lilac earmuffs holding a mug of cocoa',
              'winter_owl': 'a snowy owl in a knit hat holding a magnifying glass to a snowflake',
+             'autumn_pumpkin': 'a smiling pumpkin in a lilac scarf with a warm mug',
+             'autumn_scarecrow': 'a friendly scarecrow in a lilac hat holding a magnifying glass beside a pumpkin',
+             'autumn_mushroom': 'a little mushroom in a lilac scarf sitting on a pumpkin',
+             'autumn_sleepy_fox': 'a sleepy fox curled up beside a warm mug and autumn leaves',
+             'autumn_harvest_friends': 'a fox, a hedgehog and a squirrel sharing a little harvest table with a pumpkin',
+             'autumn_squirrel': 'a squirrel in a lilac scarf holding an acorn beside a basket of acorns',
+             'autumn_fox_path': 'a fox with a magnifying glass at a fork in an autumn woodland path',
+             'autumn_hedgehog_tea': 'a hedgehog in a lilac blanket with a mug of tea and a book',
              'winter_fox': 'a fox wrapped in a blanket with a warm mug by a snowy window',
              'winter_polarbear_lantern': 'a polar bear holding a glowing lantern under a crescent moon'}
 
-def season_key(name):
+def season_key(name, day):
     n = (name or '').lower()
-    for k in ('hanukkah', 'christmas', 'new year'):
-        if k in n: return k
-    return None
+    for k in ('halloween', 'clocks', 'thanksgiving', 'black friday', 'cyber', 'hanukkah', 'christmas', 'new year'):
+        if k in n: return 'black friday' if k == 'cyber' else k
+    return 'autumn' if int(day[5:7]) in (9, 10, 11) else 'winter'
 
 def pick_art(season, day):
-    choices = ART[season_key(season)]
+    choices = ART[season_key(season, day)]
     return choices[int(hashlib.sha256(('art:' + day).encode()).hexdigest(), 16) % len(choices)]
 
 def wrap(draw, text, f, width):
