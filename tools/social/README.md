@@ -22,3 +22,9 @@ key and the hard rules, and those rules win over this file. No secrets go in thi
 - `fonts/`: Poppins (SIL Open Font License).
 - Music: synthesised in the script, no licensed audio.
 - `fixtures/`: a sample feed answer for testing.
+
+`make_short.py` (2 Nov 2026): an 8-s "Same meaning?" / "Same story?" Reel from a small spec JSON (two near-identical lines,
+a tag for each after the reveal at 3.4 s, a verdict, one line of why, a call to play). Same palette, fonts, art, safe zones
+and synthesised audio as `make_post.py`. Used for the Tuesday and Saturday pillar posts (CONTENT_CALENDAR in the project).
+
+    python3 -I tools/social/make_short.py spec.json --out /tmp/short
