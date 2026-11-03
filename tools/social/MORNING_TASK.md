@@ -13,34 +13,73 @@ CALENDAR (post date | Daily it shows | expected season | Metricool uuids IG+TikT
 2026-10-28 | 2026-10-27 | Halloween | NEW
 2026-10-30 | 2026-10-29 | Halloween | NEW
 2026-11-01 | 2026-10-31 | Halloween (peak) or Clocks go back | NEW
+2026-11-03 | 2026-11-02 | (feed) | LI
 2026-11-04 | 2026-11-03 | none | NEW
+2026-11-05 | 2026-11-04 | (feed) | LI
 2026-11-06 | 2026-11-05 | none | NEW
+2026-11-07 | 2026-11-06 | (feed) | LI
 2026-11-08 | 2026-11-07 | none | NEW
+2026-11-09 | 2026-11-08 | (feed) | LI
+2026-11-10 | 2026-11-09 | (feed) | LI
 2026-11-11 | 2026-11-10 | none | NEW
+2026-11-12 | 2026-11-11 | (feed) | LI
 2026-11-13 | 2026-11-12 | Thanksgiving | NEW
+2026-11-14 | 2026-11-13 | (feed) | LI
 2026-11-15 | 2026-11-14 | Thanksgiving | NEW
+2026-11-16 | 2026-11-15 | (feed) | LI
+2026-11-17 | 2026-11-16 | (feed) | LI
 2026-11-18 | 2026-11-17 | Thanksgiving | NEW
+2026-11-19 | 2026-11-18 | (feed) | LI
+2026-11-20 | 2026-11-19 | (feed) | LI
 2026-11-21 | 2026-11-20 | Thanksgiving or Black Friday | NEW
 2026-11-22 | 2026-11-21 | Thanksgiving or Black Friday | NEW
+2026-11-23 | 2026-11-22 | (feed) | LI
+2026-11-24 | 2026-11-23 | (feed) | LI
 2026-11-25 | 2026-11-24 | Thanksgiving or Black Friday | NEW
+2026-11-26 | 2026-11-25 | (feed) | LI
 2026-11-27 | 2026-11-26 | Thanksgiving (peak) | NEW
 2026-11-28 | 2026-11-27 | Black Friday (peak) | NEW
+2026-11-29 | 2026-11-28 | (feed) | LI
+2026-11-30 | 2026-11-29 | (feed) | LI
 2026-12-01 | 2026-11-30 | Black Friday / Cyber Monday | -8569509349988413453 / 4677228669795189117
 2026-12-02 | 2026-12-01 | Black Friday | NEW
+2026-12-03 | 2026-12-02 | (feed) | LI
+2026-12-04 | 2026-12-03 | (feed) | LI
 2026-12-05 | 2026-12-04 | Hanukkah | 5404090076457094699 / 7686230021308894376
+2026-12-06 | 2026-12-05 | (feed) | LI
+2026-12-07 | 2026-12-06 | (feed) | LI
 2026-12-08 | 2026-12-07 | Hanukkah | 6232002692901127206 / -2839994431911673847
 2026-12-09 | 2026-12-08 | Hanukkah | NEW
+2026-12-10 | 2026-12-09 | (feed) | LI
 2026-12-11 | 2026-12-10 | Hanukkah or Christmas | -9143133268621179825 / -1774673869838464083
+2026-12-12 | 2026-12-11 | (feed) | LI
+2026-12-13 | 2026-12-12 | (feed) | LI
+2026-12-14 | 2026-12-13 | (feed) | LI
 2026-12-15 | 2026-12-14 | Christmas | -6344507044962416261 / 7885143979503144718
 2026-12-16 | 2026-12-15 | Christmas | NEW
+2026-12-17 | 2026-12-16 | (feed) | LI
 2026-12-18 | 2026-12-17 | Christmas | -620664513017263262 / 3011829654373811755
+2026-12-19 | 2026-12-18 | (feed) | LI
+2026-12-20 | 2026-12-19 | (feed) | LI
 2026-12-21 | 2026-12-20 | Christmas (caption may nod to the solstice, the longest night) | 6083866124695586174 / -7317059254601363607
+2026-12-22 | 2026-12-21 | (feed) | LI
+2026-12-23 | 2026-12-22 | (feed) | LI
 2026-12-24 | 2026-12-23 | Christmas | 7630657393272114038 / 568129636945643400
 2026-12-25 | 2026-12-24 (peak) | Christmas | -1703610410592679226 / 8350945525856684780
+2026-12-26 | 2026-12-25 | (feed) | LI
+2026-12-27 | 2026-12-26 | (feed) | LI
+2026-12-28 | 2026-12-27 | (feed) | LI
+2026-12-29 | 2026-12-28 | (feed) | LI
 2026-12-30 | 2026-12-29 | New Year | NEW
 2026-12-31 | 2026-12-30 | New Year | -514638667969443367 / -7675284212380841404
+2027-01-01 | 2026-12-31 | (feed) | LI
 2027-01-02 | 2027-01-01 | New Year | NEW
 ```
+**LI rows = LinkedIn only** (owner, 2 Nov 2026: LinkedIn gets yesterday's puzzle every day; Instagram/TikTok keep their own
+days). On an LI row make ONE post: the LinkedIn still, created as a NEW draft at 18:00. No Reel, no IG/TikTok post, no cover
+upload. Every step below applies, minus the Instagram/TikTok parts (each step says what changes on LI rows).
+On LI dates other 18:00 posts may already exist (e.g. a scheduled Instagram/TikTok pillar Reel): never touch them.
+
 The season in the feed (`question.seasonName`) wins over the "expected season" column, which is only a hint.
 Never touch the Kwanzaa greeting (Dec 26, uuids 5235452468068761820 / 4881212155189151911) or any other post, including the
 owner's own posts at other times on the same dates. All puzzle posts publish at 18:00 America/New_York on the post date.
@@ -74,11 +113,14 @@ and open them, `cover.jpg` and `linkedin.jpg` with the Read tool. Check:
   Black Friday squirrel; Hanukkah hedgehog; Christmas reindeer/gingerbread/tree; New Year toast; no season: autumn animals in
   Oct-Nov, winter animals in Dec-Jan).
 If not, don't upload; report what's wrong.
+On LI rows only `linkedin.jpg` is used: open it and check the board, the peach answer cards (match `meta.json` "answer"), the
+explanation and the art; the Reel frames and cover need no check.
 
 ## STEP 3 - Upload media
 Copy to `<YYYY-MM>/<post date>_puzzle_reel.mp4`, `<YYYY-MM>/<post date>_puzzle_cover.jpg` and
 `<YYYY-MM>/<post date>_puzzle_linkedin.jpg` in the clone (e.g. `2026-11/`), commit "Puzzle post <post date>",
 `git pull --rebase`, push. Public URL: `https://raw.githubusercontent.com/Lilac-Intensity-Games-GistHunt/media/main/<path>`.
+On LI rows upload only `<YYYY-MM>/<post date>_puzzle_linkedin.jpg`.
 
 ## STEP 4 - Captions
 Voice: dry, warm and funny; small stakes, big feelings; clever before silly; never smug, never cruel; play it straight and
@@ -101,6 +143,8 @@ Keep the one a stranger would most need to finish reading; it is also the TikTok
   "Today's Daily is free to play. The link is in the first comment."; "From Lilac Intensity Games."; 3 hashtags
   (#GistHunt #ReadingComprehension #WordGames).
 - **First comment (LinkedIn post):** "Today's Gist Daily: https://playgisthunt.com"
+- On LI rows write only the hook (pick the best of three as usual) and the LinkedIn text + first comment. Posting daily means the
+  LinkedIn page sees one every day: vary the "careful reading" line, don't reuse yesterday's wording.
 
 ## STEP 5 - Metricool
 Connector "Metricool Social Media Management"; blogId/brandId 7081870; timezone America/New_York. Every post stays
@@ -124,14 +168,21 @@ NEW rows: first call getScheduledPosts for that date; if an 18:00 puzzle draft f
 instead. Otherwise `createScheduledPost` twice (providers `[{network:"instagram"},{network:"tiktok"}]` with the Reel;
 `[{network:"linkedin"}]` with the still), draft:true, 18:00.
 
+LI rows: first call getScheduledPosts for that date; if an 18:00 LinkedIn draft whose text mentions "Gist Daily" already exists
+(a re-run), update it instead. Otherwise `createScheduledPost` once, providers `[{network:"linkedin"}]` with the still, draft:true,
+18:00. Never create or update any non-LinkedIn post on an LI date.
+
 If Metricool rejects `firstCommentText` or `videoThumbnailUrl` for a network, send the post again without that field and report it.
-Afterwards call getScheduledPosts for the date again and confirm both puzzle posts show draft:true, 18:00 and the new media.
+Afterwards call getScheduledPosts for the date again and confirm both puzzle posts (on LI rows: the one LinkedIn post) show
+draft:true, 18:00 and the new media.
 
 ## STEP 6 - Reply (the owner reads this)
 Post date; the Daily and question number; season and picture; the answer; the hook candidates and the one chosen; the send line;
 the captions and first comments used; the plannerUrl links; anything skipped or wrong. Never include the key.
+On LI rows say "LinkedIn only" at the top.
 End with: "These stay drafts until about 12:07, when the noon task schedules them for 18:00. To hold them, edit them in Metricool
 or tell Claude to stop the auto-approve."
 
 (Since 27 Oct 2026 the owner has the posts automated: a second scheduled task, "Gist Hunt puzzle posts (noon auto-approve)",
-checks today's two 18:00 drafts at 12:07 New York time and switches them to scheduled. This task still only ever makes drafts.)
+checks today's 18:00 puzzle drafts at 12:07 New York time (two on full post days, one LinkedIn post on LI days) and switches them
+to scheduled. This task still only ever makes drafts.)
