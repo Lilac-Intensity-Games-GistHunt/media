@@ -23,13 +23,13 @@ WALL = (43, 33, 64); MINT = (64, 214, 150); LILAC = (184, 160, 255)
 
 # ---- the week's cards (real Loiter cards; ids from the live deck, 12 Nov 2026) ----
 CARDS = [
-    dict(id="lc-0db7b9661950dcac6cf4", q="Compliment or insult?", t="You drive like you’re carrying a wedding cake.", l="Insult", r="Compliment", field=PINK),
-    dict(id="lc-739d0f9ebd65adf57999", q="Whose side are you on?", t="You held the door. She’s still 40 feet away and now has to jog. You both hate this.", l="The holder", r="The jogger", field=YEL, card=PAPER),
-    dict(id="mad-thumbs", q="Are they mad at you?", t="A single thumbs-up, four hours later.", l="Mad", r="Not mad", field=LILAC),
-    dict(id="lc-b79c5d91f101d329fa3c", q="Compliment or insult?", t="You have the energy of someone who owns a lot of lamps.", l="Insult", r="Compliment", field=PINK),
-    dict(id="yes-pencil", q="Is this a yes?", t="I’ll put it on my calendar, in pencil.", l="That’s a no", r="That’s a yes", field=MINT),
-    dict(id="crime-milk", q="Bigger crime?", t=None, l="Putting the empty milk back in the fridge.", r="Leaving one bite so it isn’t technically gone.", ls="Empty milk", rs="One bite", field=YEL, card=PAPER),
-    dict(id="threat-fence", q="Friendly or a threat?", t="Lovely fence. Is that where you want it?", l="A threat", r="Friendly", field=LILAC),
+    dict(id="aura-wave", q="Can you earn it back?", t="You waved back at someone waving behind you. Minus 10,000 aura. You’re on a payment plan.", l="Never", r="Slowly", field=PINK),
+    dict(id="principal-bet", q="Can you take it back?", t="The principal said, “My office.” You said, “Bet.” You don’t know why. Neither does she.", l="Apologize", r="Stand by it", field=YEL, card=PAPER),
+    dict(id="dana-screenshot", q="Do you have a plan?", t="You sent a screenshot of Dana’s text to Dana. The saxophones are getting louder. She’s still typing.", l="Not yet", r="Move away", field=LILAC),
+    dict(id="mogged-beagle", q="Have you been mogged?", t="Your dog got more birthday wishes than you. On your birthday. Mogged by a beagle.", l="Never", r="Daily", field=MINT),
+    dict(id="delulu-haha", q="Would you do the same?", t="They replied “haha.” You’ve told three friends and named the dog. Delulu is the solulu.", l="Absolutely not", r="Honestly, yes", field=PINK),
+    dict(id="ick-beep", q="Can it come back?", t="You liked Sam all year. He backed out of the lunch line going “beep, beep.” It’s gone. The ick.", l="Never", r="Give it time", field=YEL, card=PAPER),
+    dict(id="mom-towels", q="How fast would you fold?", t="Mom sat on your bed and said, “So.” You confessed to four things. She came about towels. Cooked.", l="I’d hold out", r="Instantly", field=LILAC),
 ]
 
 def ease_out(x): x = max(0.0, min(1.0, x)); return 1 - (1 - x) ** 3
