@@ -366,6 +366,183 @@ class WhoSays:
         seg2 = np.zeros_like(buf); music(seg2, T.T_PUNCH + 0.8, T.T_TOTAL, bpm=112, seed=21); buf += seg2 * 0.8
         chime(buf, T.T_END); finish(buf, T.T_TOTAL, path)
 
+# =====================================================================================
+# AD D: CALL ME.
+# =====================================================================================
+class CallMe:
+    T_PERIOD, T_CARD, T_DOT, T_WIFI, T_END, T_TOTAL = 1.8, 3.8, 7.4, 9.6, 12.0, 14.8
+    def frame(self, t):
+        T = self
+        if t < T.T_PERIOD:
+            img = gradient(t, VIOLET, VIOLET_D); sparkles(img, t, 60)
+            slam_words(img, t, [("your mom texts:", 720, font("Bold", 92), CREAM, 0.1, 0)])
+            if t >= 0.7:
+                # phone bubble
+                s = pop(t, 0.7, 0.25)
+                b = Image.new("RGBA", (720, 230), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
+                rr(bd, (8, 12, 720, 230), 60, fill=(0, 0, 0, 70)); rr(bd, (0, 0, 712, 218), 60, fill=CREAM)
+                f = font("Bold", 120); tw = bd.textlength("call me.", font=f); bd.text(((712 - tw) / 2, 30), "call me.", font=f, fill=NAVY)
+                put(img, b, W / 2, 960, scale=s, rot=-2)
+            sh = impulses(t, [0.1, 0.7], 16)
+            return camera(img, zoom=1.04, dx=sh, dy=sh * 0.6)
+        if t < T.T_CARD:
+            k = t - T.T_PERIOD
+            img = gradient(t, NAVY, (40, 30, 90), 0.1); sparkles(img, t, 30)
+            # zoom into the period: keep the dot at a fixed screen point while the line grows
+            z = 1.0 + 1.6 * ease_out(k / 1.4)
+            f = font("Bold", 200)
+            lay = text_layer("call me.", f, CREAM)
+            dd = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+            l0, t0_, r0, b0 = dd.textbbox((0, 0), "call me.", font=f)
+            pl, pt, pr, pb = dd.textbbox((0, 0), "call me", font=f)
+            dot_x = 30 + (pr - l0) + ((r0 - l0) - (pr - l0)) / 2      # dot centre inside the layer (pad 30)
+            dot_y = 30 + (b0 - t0_) - 22
+            tx, ty = W / 2, 980                                          # where the dot should sit on screen
+            cx = tx - z * (dot_x - lay.width / 2); cy = ty - z * (dot_y - lay.height / 2)
+            put(img, lay, cx, cy, scale=z)
+            d = ImageDraw.Draw(img, "RGBA")
+            if k > 0.9:
+                r = 70 + 14 * math.sin(k * 12)
+                d.ellipse((tx - r, ty - r, tx + r, ty + r), outline=(*YELLOW, 255), width=12)
+                put(img, sticker("the period.", font("Bold", 80)), W / 2, 1300, scale=pop(t, T.T_PERIOD + 1.0), rot=wobble(t, T.T_PERIOD + 1.0, 6) - 3)
+            sh = impulses(t, [T.T_PERIOD + 0.9], 20) + 4 * math.sin(k * 30) * clamp01(k - 0.9)
+            return camera(img, zoom=1.04, dx=sh, dy=sh * 0.5, bg=NAVY)
+        if t < T.T_DOT:
+            img = gradient(t, VIOLET, PINK, 0.25); sparkles(img, t, 60)
+            put(img, text_layer("Same meaning?", font("Bold", 88), CREAM), W / 2, 520, scale=pop(t, T.T_CARD, 0.25))
+            for i, (lab, txt) in enumerate((("A", "call me."), ("B", "call me when you can :)"))):
+                t0 = T.T_CARD + 0.35 + i * 0.35
+                card = Image.new("RGBA", (920, 200), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+                rr(cd, (8, 12, 920, 200), 40, fill=(0, 0, 0, 60)); rr(cd, (0, 0, 910, 188), 40, fill=CREAM)
+                cd.text((50, 50), lab, font=font("Bold", 74), fill=VIOLET)
+                cd.text((150, 48), txt, font=font("Bold", 76 if i == 0 else 60), fill=NAVY)
+                put(img, card, W / 2, 770 + i * 250, scale=pop(t, t0, 0.25), rot=(-1) ** i * 2)
+            if t >= T.T_CARD + 1.6:
+                put(img, sticker("not even close.", font("Bold", 86)), W / 2, 1320, scale=pop(t, T.T_CARD + 1.6), rot=wobble(t, T.T_CARD + 1.6, 6) - 3)
+            sh = impulses(t, [T.T_CARD + 1.6], 18)
+            return camera(img, zoom=1.04, dx=sh, dy=sh, rot=sh * 0.08)
+        if t < T.T_WIFI:
+            img = gradient(t, VIOLET, VIOLET_D, 0.2); sparkles(img, t, 70)
+            put(img, text_layer("one dot.", font("Bold", 130), CREAM), W / 2, 820, scale=pop(t, T.T_DOT, 0.22))
+            if t >= T.T_DOT + 0.7:
+                put(img, sticker("whole new meaning.", font("Bold", 80)), W / 2, 1000, scale=pop(t, T.T_DOT + 0.7), rot=wobble(t, T.T_DOT + 0.7, 5) + 2)
+            sh = impulses(t, [T.T_DOT, T.T_DOT + 0.7], 14)
+            return camera(img, zoom=1.04, dx=sh, dy=sh)
+        if t < T.T_END:
+            img = gradient(t, PINK, VIOLET, 0.6); sparkles(img, t, 140, YELLOW)
+            put(img, text_layer("(she just wanted", font("Bold", 92), CREAM), W / 2, 840, scale=pop(t, T.T_WIFI, 0.22))
+            put(img, text_layer("the wifi password)", font("Bold", 92), YELLOW, stroke=5, stroke_fill=NAVY), W / 2, 960, scale=pop(t, T.T_WIFI + 0.35, 0.22), rot=-2)
+            sh = impulses(t, [T.T_WIFI + 0.35], 16)
+            return camera(img, zoom=1.04, dx=sh, dy=sh, bg=PINK)
+        return end_card(t, T.T_END, "Gist Hunt", "Read every word.", ["Send this to whoever", "texts “call me.”"])
+    def audio(self, path):
+        T = self; buf = np.zeros(int(SR * T.T_TOTAL) + SR)
+        add(buf, kick(), 0.1); add(buf, whoosh(0.15, 0.18, 1), 0.02)
+        add(buf, tone(1567.98, 0.12, 0.2, 20), 0.7); add(buf, tone(2093, 0.15, 0.18, 18), 0.78)  # message ping
+        # suspense: low drone + heartbeat
+        add(buf, tone(98, 2.0, 0.16, 0.8), T.T_PERIOD)
+        for i in range(4):
+            tb = T.T_PERIOD + 0.5 + i * 0.42
+            add(buf, kick() * 0.8, tb); add(buf, kick() * 0.5, tb + 0.14)
+        seg = np.zeros_like(buf); music(seg, T.T_CARD, T.T_WIFI - 0.05, bpm=112); buf += seg
+        add(buf, kick() * 1.3, T.T_CARD + 1.6); add(buf, noise(0.2, 0.2, 10, 5), T.T_CARD + 1.6)
+        add(buf, tone(1318.5, 0.3, 0.14, 7), T.T_DOT + 0.7)
+        # the reveal: record scratch then silly bounce
+        n = int(0.3 * SR); tt = np.arange(n) / SR
+        f = 300 + 1400 * np.abs(np.sin(2 * np.pi * 3.2 * tt))
+        add(buf, lowpass(0.3 * np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * np.exp(-5 * tt), 0.25), T.T_WIFI - 0.05)
+        for i, fq in enumerate((392, 523.25, 392, 659.25)): add(buf, tone(fq, 0.18, 0.15, 10), T.T_WIFI + 0.35 + i * 0.13)
+        seg2 = np.zeros_like(buf); music(seg2, T.T_WIFI + 0.9, T.T_TOTAL, bpm=112, seed=21); buf += seg2 * 0.8
+        chime(buf, T.T_END); finish(buf, T.T_TOTAL, path)
+
+# =====================================================================================
+# AD E: STREAK (POV: the Daily resets in 2 minutes)
+# =====================================================================================
+class Streak:
+    T_RUN, T_SAVED, T_TOMORROW, T_END, T_TOTAL = 2.2, 6.6, 9.2, 11.4, 14.2
+    QS = [(2.6, "Q1"), (3.8, "Q2 · lightning"), (5.0, "Q3")]
+    def clock(self, t):
+        # 1:59 at start, races down to 0:04 at T_SAVED
+        if t < self.T_RUN: secs = 119 - int(t)
+        else: secs = int(117 - (113) * ease_out(clamp01((t - self.T_RUN) / (self.T_SAVED - self.T_RUN))))
+        secs = max(4, secs); return f"{secs // 60}:{secs % 60:02d}"
+    def streak_chip(self, n, col=YELLOW):
+        return sticker_lines([f"streak: {n} days"], font("Bold", 58), bg=col)
+    def frame(self, t):
+        T = self
+        if t < T.T_RUN:
+            img = gradient(t, VIOLET_D, VIOLET); sparkles(img, t, 60)
+            slam_words(img, t, [("POV:", 600, font("Bold", 110), CREAM, 0.1, -3),
+                                ("the Daily resets in", 780, font("Bold", 84), CREAM, 0.5, 0)])
+            if t >= 1.0:
+                put(img, text_layer(self.clock(t), font("Bold", 260), YELLOW, stroke=8, stroke_fill=NAVY), W / 2, 1040,
+                    scale=pop(t, 1.0, 0.2) * (1 + 0.03 * math.sin(t * 20)))
+            sh = impulses(t, [0.1, 0.5, 1.0], 16)
+            return camera(img, zoom=1.04, dx=sh, dy=sh * 0.6)
+        if t < T.T_SAVED:
+            img = gradient(t, PINK, VIOLET, 0.9); sparkles(img, t, 80)
+            d = ImageDraw.Draw(img, "RGBA")
+            put(img, self.streak_chip(46, CREAM), W / 2 - 200, 330, rot=-3)
+            put(img, text_layer(self.clock(t), font("Bold", 110), YELLOW, stroke=6, stroke_fill=NAVY), W / 2 + 260, 330,
+                scale=1 + 0.05 * math.sin(t * 25))
+            # question cards flying in, each stamped ✓
+            for i, (t0, lab) in enumerate(T.QS):
+                if t < t0: continue
+                y = 660 + i * 260
+                card = Image.new("RGBA", (900, 200), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+                rr(cd, (8, 12, 900, 200), 40, fill=(0, 0, 0, 60)); rr(cd, (0, 0, 890, 188), 40, fill=CREAM)
+                cd.text((50, 54), lab, font=font("Bold", 72), fill=NAVY)
+                put(img, card, W / 2 - 30, y, scale=pop(t, t0, 0.2), rot=(-1) ** i * 2.5)
+                if t >= t0 + 0.45:
+                    stamp = Image.new("RGBA", (150, 150), (0, 0, 0, 0)); sd = ImageDraw.Draw(stamp)
+                    sd.ellipse((0, 0, 148, 148), fill=MINT); sf = ImageFont.truetype(SYM, 92)
+                    mw = sd.textlength("✓", font=sf); sd.text(((148 - mw) / 2, 16), "✓", font=sf, fill=CREAM)
+                    put(img, stamp, W - 150, y, scale=pop(t, t0 + 0.45, 0.2), rot=-10)
+            if t >= 3.0:
+                put(img, sticker("read. every. word.", font("Bold", 64)), W / 2, 1470, scale=pop(t, 3.0), rot=wobble(t, 3.0, 5) + 2)
+            # panic speed lines
+            for i in range(8):
+                yy = 250 + i * 200 + int((t * 1400) % 200)
+                d.line((24, yy, 24, yy + 100), fill=(*CREAM, 120), width=7); d.line((W - 24, yy + 80, W - 24, yy + 180), fill=(*CREAM, 120), width=7)
+            sh = impulses(t, [q[0] + 0.45 for q in T.QS], 12) + 3 * math.sin(t * 40)
+            return camera(img, zoom=1.05, dx=sh, dy=sh * 0.7, rot=sh * 0.05)
+        if t < T.T_TOMORROW:
+            img = gradient(t, YELLOW, (255, 170, 40), 0.6); sparkles(img, t, 160, VIOLET)
+            put(img, text_layer("0:04", font("Bold", 90), NAVY), W / 2, 480, alpha=0.6)
+            put(img, sticker_lines(["streak: 47 days"], font("Bold", 110), bg=CREAM), W / 2, 820, scale=pop(t, T.T_SAVED, 0.25), rot=-3)
+            if t >= T.T_SAVED + 0.8:
+                put(img, text_layer("phew.", font("Bold", 150), VIOLET_D), W / 2, 1100, scale=pop(t, T.T_SAVED + 0.8, 0.22), rot=3)
+            # confetti
+            d = ImageDraw.Draw(img, "RGBA"); rng = np.random.default_rng(7)
+            for j in range(70):
+                x0 = rng.uniform(0, W); v = rng.uniform(500, 1100); ph = rng.uniform(0, 6)
+                y = -50 + (t - T.T_SAVED) * v - rng.uniform(0, 300)
+                if 0 < y < H:
+                    c = [VIOLET, PINK, MINT, CREAM, RED][j % 5]; x = x0 + 30 * math.sin(t * 5 + ph)
+                    d.rectangle((x, y, x + 16, y + 28), fill=c)
+            sh = impulses(t, [T.T_SAVED, T.T_SAVED + 0.8], 20)
+            return camera(img, zoom=1.04, dx=sh, dy=sh, bg=YELLOW)
+        if t < T.T_END:
+            img = gradient(t, VIOLET, VIOLET_D, 0.2); sparkles(img, t, 80)
+            put(img, text_layer("same time", font("Bold", 120), CREAM), W / 2, 840, scale=pop(t, T.T_TOMORROW, 0.25))
+            put(img, text_layer("tomorrow?", font("Bold", 120), YELLOW, stroke=6, stroke_fill=NAVY), W / 2, 990, scale=pop(t, T.T_TOMORROW + 0.3, 0.25), rot=-2)
+            sh = impulses(t, [T.T_TOMORROW + 0.3], 12)
+            return camera(img, zoom=1.04, dx=sh, dy=sh)
+        return end_card(t, T.T_END, "Gist Hunt", "One free puzzle a day.", ["Send this to", "your streak buddy."],
+                        small=["Same puzzle for everyone."])
+    def audio(self, path):
+        T = self; buf = np.zeros(int(SR * T.T_TOTAL) + SR)
+        for tw in (0.1, 0.5, 1.0): add(buf, kick() * 1.1, tw); add(buf, whoosh(0.15, 0.18, 2), tw - 0.08)
+        tk = 1.0
+        while tk < T.T_SAVED:   # clock ticks speeding up
+            add(buf, tone(2400, 0.03, 0.12, 120), tk); tk += max(0.12, 0.5 - 0.09 * (tk - 1.0))
+        seg = np.zeros_like(buf); music(seg, T.T_RUN, T.T_SAVED, bpm=140); buf += seg
+        for t0, _ in T.QS: add(buf, whoosh(0.12, 0.15, 50), t0 - 0.05); add(buf, tone(988, 0.15, 0.16, 12), t0 + 0.45); add(buf, tone(1318.5, 0.2, 0.14, 10), t0 + 0.52)
+        fanfare(buf, T.T_SAVED); add(buf, kick() * 1.4, T.T_SAVED); add(buf, noise(0.4, 0.12, 6, 8), T.T_SAVED)
+        add(buf, tone(196, 0.6, 0.15, 3), T.T_SAVED + 0.8)  # "phew" sigh
+        seg2 = np.zeros_like(buf); music(seg2, T.T_TOMORROW, T.T_TOTAL, bpm=104, seed=21); buf += seg2 * 0.75
+        chime(buf, T.T_END); finish(buf, T.T_TOTAL, path)
+
 # ---------- shared audio bits ----------
 def whoosh(dur=0.25, amp=0.25, seed=5):
     w = noise(dur, amp, 3, seed); return lowpass(w * np.sin(np.linspace(0, np.pi, len(w))), 0.12)
@@ -382,7 +559,7 @@ def finish(buf, total, path):
     with wave.open(path, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((buf * 32767).astype(np.int16).tobytes())
 
-ADS = {"versus": Versus, "comfort": Comfort, "whosays": WhoSays}
+ADS = {"versus": Versus, "comfort": Comfort, "whosays": WhoSays, "callme": CallMe, "streak": Streak}
 _AD = None
 def _get(name):
     global _AD
