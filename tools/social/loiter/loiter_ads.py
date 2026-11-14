@@ -161,25 +161,25 @@ def topbar(img, t):
     put(img, pill("WHICH IS IT?", sans(36), fill=INK, fg=PAPER, h=84, padx=30), 760, 300, rot=-3 + 1.5 * math.sin(t * 2))
 
 # ---------- video timeline ----------
-T_IN, T_SWAY, T_ASK, T_END, T_TOTAL = 0.0, 0.7, 5.6, 7.4, 10.0
+T_IN, T_SWAY, T_ASK, T_END, T_TOTAL = 0.0, 0.7, 7.6, 9.4, 12.0
 
 def _ease(x):
     x = max(0.0, min(1.0, x)); return x * x * (3 - 2 * x)
 
 # lean left and hold, lean right and hold, one small wiggle, settle (readable while it holds)
-KEYS = [(0.0, 0.0), (0.9, 0.0), (1.3, -1.0), (2.6, -1.0), (3.05, 1.0), (4.35, 1.0), (4.75, 0.0)]
+KEYS = [(0.0, 0.0), (0.9, 0.0), (1.3, -1.0), (3.5, -1.0), (3.95, 1.0), (6.15, 1.0), (6.55, 0.0)]  # ~2.2 s hold each side
 def lean_at(t):
-    if t < 4.75:
+    if t < 6.55:
         for (t0, v0), (t1, v1) in zip(KEYS, KEYS[1:]):
             if t0 <= t < t1: return v0 + (v1 - v0) * _ease((t - t0) / (t1 - t0))
         return 0.0
-    if t < 5.45:  # one small "can't decide" wiggle
-        k = (t - 4.75) / 0.7
+    if t < 7.25:  # one small "can't decide" wiggle
+        k = (t - 6.55) / 0.7
         return 0.35 * math.sin(k * 2 * math.pi * 2) * (1 - k)
     return 0.0
 
 def swing_times():
-    return [0.95, 2.65, 4.8, 5.05]
+    return [0.95, 3.55, 6.6, 6.85]
 
 def frame(c, t):
     img = background(c, t)
@@ -275,7 +275,7 @@ def video(n):
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(outdir, "video.mp4"), "-i", os.path.join(outdir, "audio.wav"), "-map", "0:v", "-map", "1:a",
                     "-c:v", "copy", "-af", "loudnorm=I=-15:TP=-1.5:LRA=11", "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
                     os.path.join(outdir, f"loiter_which_is_it_{n + 1}.mp4")], check=True)
-    frame(CARDS[n], 6.6).convert("RGB").save(os.path.join(outdir, "cover.jpg"), quality=92)
+    frame(CARDS[n], T_ASK + 1.0).convert("RGB").save(os.path.join(outdir, "cover.jpg"), quality=92)
     still(CARDS[n]).convert("RGB").save(os.path.join(outdir, f"loiter_which_is_it_{n + 1}.jpg"), quality=93)
 
 if __name__ == "__main__":

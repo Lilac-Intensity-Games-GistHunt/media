@@ -9,7 +9,7 @@ def prep(i, c):
     return d
 def render_one(i):
     c = prep(i, json.load(open('week23_cards.json'))[i])
-    outdir = os.path.join(L.HERE, 'out23', f'c{i+1:02d}'); os.makedirs(outdir, exist_ok=True)
+    outdir = os.path.join(L.HERE, 'out23b', f'c{i+1:02d}'); os.makedirs(outdir, exist_ok=True)
     final = os.path.join(outdir, 'reel.mp4')
     if os.path.exists(final): return i
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{L.W}x{L.H}", "-r", str(L.FPS),
@@ -21,7 +21,7 @@ def render_one(i):
                     "-c:v", "copy", "-af", "loudnorm=I=-15:TP=-1.5:LRA=11", "-ar", "44100", "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart",
                     os.path.join(outdir, 'tmp.mp4')], check=True)
     os.replace(os.path.join(outdir, 'tmp.mp4'), final)
-    L.frame(c, 6.6).convert("RGB").save(os.path.join(outdir, 'cover.jpg'), quality=90)
+    L.frame(c, L.T_ASK + 1.0).convert("RGB").save(os.path.join(outdir, 'cover.jpg'), quality=90)
     os.remove(os.path.join(outdir, 'v.mp4'))
     print('done', i + 1, flush=True); return i
 if __name__ == "__main__":
