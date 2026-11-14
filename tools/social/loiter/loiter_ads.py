@@ -93,19 +93,34 @@ def card_layer(c, w=880, h=880, glow=0.0):
     lay = Image.new("RGBA", (w + 8, h + 26), (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
     d.rounded_rectangle((0, 18, w, h + 18), 48, fill=INK)
     d.rounded_rectangle((0, 0, w, h), 48, fill=c.get("card", YEL), outline=INK, width=7)
-    ef = sans(34); x = 56
-    for ch in c["q"].upper():
-        d.text((x, 54), ch, font=ef, fill=INK); x += d.textlength(ch, font=ef) + 4
+    # eyebrow: letter-spaced caps; wraps to two lines when long
+    def spaced_w(s, f): return sum(d.textlength(ch, font=f) + 4 for ch in s)
+    ef = sans(34); maxw = w - 170; words = c["q"].upper().split(" "); lines = [""]
+    for wd in words:
+        tst = (lines[-1] + " " + wd).strip()
+        if spaced_w(tst, ef) > maxw and lines[-1]: lines.append(wd)
+        else: lines[-1] = tst
+    if len(lines) > 2:
+        ef = sans(28); lines = [""]
+        for wd in words:
+            tst = (lines[-1] + " " + wd).strip()
+            if spaced_w(tst, ef) > maxw and lines[-1]: lines.append(wd)
+            else: lines[-1] = tst
+    for li, ln in enumerate(lines):
+        x = 56
+        for ch in ln:
+            d.text((x, 54 + li * 44), ch, font=ef, fill=INK); x += d.textlength(ch, font=ef) + 4
+    top = 140 + 44 * (len(lines) - 1)
     heart(d, w - 80, 76, 44, INK); heart(d, w - 80, 77, 28, c.get("card", YEL))
     if c["t"]:
-        f, ls, lh = fit_text(d, c["t"], w - 140, h - 220, start=92)
-        y0 = 140 + (h - 160 - len(ls) * lh) / 2
+        f, ls, lh = fit_text(d, c["t"], w - 140, h - 180 - top, start=92)
+        y0 = top + (h - top - 20 - len(ls) * lh) / 2
         for i, l in enumerate(ls):
             lw = d.textlength(l, font=f); d.text(((w - lw) / 2, y0 + i * lh), l, font=f, fill=INK)
     else:  # "pick" card: two options
         f, la, lh = fit_text(d, c["l"], w - 160, 250, start=70)
         _, lb, _ = fit_text(d, c["r"], w - 160, 250, start=f.size, minsize=f.size)
-        y = 190
+        y = top + 50
         for i, l in enumerate(la):
             lw = d.textlength(l, font=f); d.text(((w - lw) / 2, y + i * lh), l, font=f, fill=INK)
         y += len(la) * lh + 30
@@ -118,11 +133,17 @@ def card_layer(c, w=880, h=880, glow=0.0):
 def short(label):  # button text: pick cards use short A/B labels
     return label if len(label) <= 14 else None
 
+def labels(c):
+    if c.get("ls"): return c["ls"], c["rs"]
+    a, b = short(c["l"]), short(c["r"])
+    if a and b: return a, b
+    return "This one", "That one"
+
 def buttons(img, c, lean, t):
-    lab_l = c.get("ls") or short(c["l"]) or "This one"; lab_r = c.get("rs") or short(c["r"]) or "That one"
+    lab_l, lab_r = labels(c)
     f = sans(46)
     for side, lab, cx in (("l", "← " + lab_l, 290), ("r", lab_r + " →", 790)):
-        active = (lean < -0.45 and side == "l") or (lean > 0.45 and side == "r")
+        active = (lean < -0.6 and side == "l") or (lean > 0.6 and side == "r")
         p = pill(lab, f, fill=INK if active else PAPER, fg=PAPER if active else INK, h=118, padx=36)
         if p.width > 470: p = p.resize((470, int(p.height * 470 / p.width)))
         put(img, p, cx, 1395, scale=1.06 if active else 1.0)
@@ -142,23 +163,23 @@ def topbar(img, t):
 # ---------- video timeline ----------
 T_IN, T_SWAY, T_ASK, T_END, T_TOTAL = 0.0, 0.7, 5.6, 7.4, 10.0
 
+def _ease(x):
+    x = max(0.0, min(1.0, x)); return x * x * (3 - 2 * x)
+
+# lean left and hold, lean right and hold, one small wiggle, settle (readable while it holds)
+KEYS = [(0.0, 0.0), (0.9, 0.0), (1.3, -1.0), (2.6, -1.0), (3.05, 1.0), (4.35, 1.0), (4.75, 0.0)]
 def lean_at(t):
-    if t < T_SWAY: return 0.0
-    if t < T_ASK:
-        k = (t - T_SWAY) / (T_ASK - T_SWAY)
-        freq = 0.9 + 1.6 * k  # indecision speeds up
-        ph = 2 * math.pi * (0.9 * (t - T_SWAY) + 0.8 * (t - T_SWAY) ** 2 / (T_ASK - T_SWAY))
-        return math.sin(ph) * (0.6 + 0.4 * k)
-    return math.sin(2 * math.pi * 0.9 * (T_ASK - T_SWAY)) * max(0.0, 1 - (t - T_ASK) / 0.35)
+    if t < 4.75:
+        for (t0, v0), (t1, v1) in zip(KEYS, KEYS[1:]):
+            if t0 <= t < t1: return v0 + (v1 - v0) * _ease((t - t0) / (t1 - t0))
+        return 0.0
+    if t < 5.45:  # one small "can't decide" wiggle
+        k = (t - 4.75) / 0.7
+        return 0.35 * math.sin(k * 2 * math.pi * 2) * (1 - k)
+    return 0.0
 
 def swing_times():
-    """times the lean crosses an extreme (for notes)."""
-    ts, prev, prevd = [], 0, 0
-    for n in range(int(T_SWAY * 100), int(T_ASK * 100)):
-        t = n / 100; v = lean_at(t); dv = v - prev
-        if prevd > 0 and dv <= 0 or prevd < 0 and dv >= 0: ts.append(t)
-        prev, prevd = v, dv
-    return ts
+    return [0.95, 2.65, 4.8, 5.05]
 
 def frame(c, t):
     img = background(c, t)
@@ -167,7 +188,7 @@ def frame(c, t):
     k_in = ease_back((t - T_IN) / 0.55)
     cl = card_layer(c)
     cy = 860 + (1 - min(1, k_in)) * 900
-    put(img, cl, W / 2 + lean * 90, cy, rot=-lean * 9)
+    put(img, cl, W / 2 + lean * 55, cy, rot=-lean * 5)
     buttons(img, c, lean, t)
     if t >= T_SWAY + 0.4 and t < T_ASK:
         put(img, pill("can’t decide.", sans(40), fill=PAPER, h=90, padx=30), 300 + 30 * math.sin(t), 1525, rot=4, alpha=clamp01((t - T_SWAY - 0.4) / 0.3))
@@ -198,7 +219,7 @@ def still(c):
     cl = card_layer(c, 880, 800)
     put(img, cl, w / 2, 620)
     f = sans(46)
-    lab_l = c.get("ls") or short(c["l"]) or "This one"; lab_r = c.get("rs") or short(c["r"]) or "That one"
+    lab_l, lab_r = labels(c)
     put(img, pill("← " + lab_l, f, h=112, padx=34), 290, 1110)
     put(img, pill(lab_r + " →", f, h=112, padx=34), 790, 1110)
     d = ImageDraw.Draw(img)
