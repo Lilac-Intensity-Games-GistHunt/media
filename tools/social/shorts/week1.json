@@ -1,0 +1,440 @@
+[
+ {
+  "id": "ps01",
+  "date": "2026-11-17T13:30",
+  "style": "Same meaning",
+  "eyebrow": "GIST HUNT · SAME MEANING",
+  "question": "Same meaning?",
+  "label": "EXAMPLE",
+  "options": [
+   {
+    "text": "She hardly noticed the noise.",
+    "tag": "barely noticed",
+    "mark": "right"
+   },
+   {
+    "text": "She barely noticed the noise.",
+    "tag": "barely noticed",
+    "mark": "right"
+   }
+  ],
+  "verdict": "Same meaning.",
+  "why": "'Hardly' and 'barely' do the same job here. Not every pair is a trap.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_fox_path",
+  "end2": "playgisthunt.com",
+  "seed": "ps01"
+ },
+ {
+  "id": "ps02",
+  "date": "2026-11-17T19:30",
+  "style": "Odd one out",
+  "eyebrow": "GIST HUNT · ODD ONE OUT",
+  "question": "Which one doesn't belong?",
+  "label": "EXAMPLE",
+  "options": [
+   {
+    "text": "The meeting moved to Friday.",
+    "tag": "moved",
+    "mark": "plain"
+   },
+   {
+    "text": "Friday is the new meeting day.",
+    "tag": "moved",
+    "mark": "plain"
+   },
+   {
+    "text": "The meeting might move to Friday.",
+    "tag": "only a maybe",
+    "mark": "right"
+   },
+   {
+    "text": "The meeting is now on Friday.",
+    "tag": "moved",
+    "mark": "plain"
+   }
+  ],
+  "verdict": "C is the odd one out.",
+  "why": "Three say it moved. 'Might' turns it into a maybe.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_hedgehog_tea",
+  "end2": "playgisthunt.com",
+  "seed": "ps02"
+ },
+ {
+  "id": "ps03",
+  "date": "2026-11-18T13:30",
+  "style": "Clue by clue",
+  "eyebrow": "GIST HUNT · CLUE BY CLUE",
+  "question": "What's going on?",
+  "context": {
+   "title": "THE CLUES · EXAMPLE",
+   "lines": [
+    "The fridge is almost empty.",
+    "Boxes line the hallway.",
+    "Keys sit on the counter with a note."
+   ]
+  },
+  "options": [
+   {
+    "text": "Someone's moving out.",
+    "tag": "every clue fits",
+    "mark": "right"
+   },
+   {
+    "text": "Someone's on vacation.",
+    "tag": "the boxes don't fit",
+    "mark": "wrong"
+   },
+   {
+    "text": "Someone's throwing a party.",
+    "tag": "nothing fits",
+    "mark": "wrong"
+   }
+  ],
+  "verdict": "A: someone's moving out.",
+  "why": "A trip explains the fridge and the note. Only a move explains the boxes.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_squirrel",
+  "end2": "playgisthunt.com",
+  "seed": "ps03"
+ },
+ {
+  "id": "ps04",
+  "date": "2026-11-18T19:30",
+  "style": "Same story",
+  "eyebrow": "HEADLINE HUNT · SAME STORY",
+  "question": "Same story?",
+  "label": "EXAMPLE HEADLINES",
+  "options": [
+   {
+    "text": "Council may raise parking fees",
+    "tag": "not decided yet",
+    "mark": "right"
+   },
+   {
+    "text": "Council raises parking fees",
+    "tag": "a done deal",
+    "mark": "wrong"
+   }
+  ],
+  "verdict": "Not the same story.",
+  "why": "'May raise' is a maybe. Drop one word and it reads like news.",
+  "end1": "Headline Hunt: real headlines, retold. Spot the change.",
+  "art": "autumn_mushroom",
+  "end2": "playgisthunt.com",
+  "seed": "ps04"
+ },
+ {
+  "id": "ps05",
+  "date": "2026-11-19T13:30",
+  "style": "Exact fit",
+  "eyebrow": "GIST HUNT · EXACT FIT",
+  "question": "Which fits every part?",
+  "context": {
+   "title": "MATCHING CONDITION · EXAMPLE",
+   "lines": [
+    "Under $20, vegetarian, open after 10 pm."
+   ]
+  },
+  "options": [
+   {
+    "text": "Taco truck · $9 · veggie · closes 9 pm",
+    "tag": "closes too early",
+    "mark": "wrong"
+   },
+   {
+    "text": "Diner · $14 · veggie burger · open till 12",
+    "tag": "all three",
+    "mark": "right"
+   },
+   {
+    "text": "Bistro · $32 · veggie pasta · open till 11",
+    "tag": "over $20",
+    "mark": "wrong"
+   }
+  ],
+  "verdict": "B fits every part.",
+  "why": "Each wrong one gets two out of three. Exact fit means all of it.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_sleepy_fox",
+  "end2": "playgisthunt.com",
+  "seed": "ps05"
+ },
+ {
+  "id": "ps06",
+  "date": "2026-11-19T19:30",
+  "style": "In order",
+  "eyebrow": "GIST HUNT · IN ORDER",
+  "question": "Put these in order.",
+  "label": "EXAMPLE · THE TIME WORDS DECIDE",
+  "options": [
+   {
+    "text": "After lunch, Mia called the client.",
+    "tag": "3rd",
+    "mark": "right"
+   },
+   {
+    "text": "Mia's day began with coffee.",
+    "tag": "1st",
+    "mark": "right"
+   },
+   {
+    "text": "Before lunch, she wrote the report.",
+    "tag": "2nd",
+    "mark": "right"
+   }
+  ],
+  "verdict": "B, C, A.",
+  "why": "'Began', 'before lunch', 'after lunch'. The order is in the words.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_scarecrow",
+  "end2": "playgisthunt.com",
+  "seed": "ps06"
+ },
+ {
+  "id": "ps07",
+  "date": "2026-11-20T13:30",
+  "style": "Stronger claim",
+  "eyebrow": "HEADLINE HUNT · STRONGER CLAIM",
+  "question": "Which claims more?",
+  "label": "EXAMPLE HEADLINES",
+  "options": [
+   {
+    "text": "Study links naps to better memory",
+    "tag": "they go together",
+    "mark": "plain"
+   },
+   {
+    "text": "Naps improve memory, study finds",
+    "tag": "one causes the other",
+    "mark": "right"
+   }
+  ],
+  "verdict": "B claims more.",
+  "why": "'Links' means they show up together. 'Improve' says one causes the other.",
+  "end1": "Headline Hunt: real headlines, retold. Spot the change.",
+  "art": "autumn_harvest_friends",
+  "end2": "playgisthunt.com",
+  "seed": "ps07"
+ },
+ {
+  "id": "ps08",
+  "date": "2026-11-20T19:30",
+  "style": "Same meaning",
+  "eyebrow": "GIST HUNT · SAME MEANING",
+  "question": "Same meaning?",
+  "label": "EXAMPLE",
+  "options": [
+   {
+    "text": "Not all the tickets sold.",
+    "tag": "some sold",
+    "mark": "right"
+   },
+   {
+    "text": "None of the tickets sold.",
+    "tag": "zero sold",
+    "mark": "wrong"
+   }
+  ],
+  "verdict": "Not the same.",
+  "why": "'Not all' leaves some sold. 'None' leaves zero.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_fox_path",
+  "end2": "playgisthunt.com",
+  "seed": "ps08"
+ },
+ {
+  "id": "ps09",
+  "date": "2026-11-21T13:30",
+  "style": "Odd one out",
+  "eyebrow": "GIST HUNT · ODD ONE OUT",
+  "question": "Which one doesn't belong?",
+  "label": "EXAMPLE",
+  "options": [
+   {
+    "text": "He rarely cooks.",
+    "tag": "now and then",
+    "mark": "plain"
+   },
+   {
+    "text": "He hardly ever cooks.",
+    "tag": "now and then",
+    "mark": "plain"
+   },
+   {
+    "text": "He seldom cooks.",
+    "tag": "now and then",
+    "mark": "plain"
+   },
+   {
+    "text": "He never cooks.",
+    "tag": "not even once",
+    "mark": "right"
+   }
+  ],
+  "verdict": "D is the odd one out.",
+  "why": "Rarely, hardly ever, seldom: now and then. Never: not once.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_hedgehog_tea",
+  "end2": "playgisthunt.com",
+  "seed": "ps09"
+ },
+ {
+  "id": "ps10",
+  "date": "2026-11-21T19:30",
+  "style": "Clue by clue",
+  "eyebrow": "GIST HUNT · CLUE BY CLUE",
+  "question": "What's going on?",
+  "context": {
+   "title": "THE CLUES · EXAMPLE",
+   "lines": [
+    "Twenty candles on a cake.",
+    "Everyone's hiding behind the couch.",
+    "A text: “she's parking.”"
+   ]
+  },
+  "options": [
+   {
+    "text": "A power cut.",
+    "tag": "why hide?",
+    "mark": "wrong"
+   },
+   {
+    "text": "A surprise party.",
+    "tag": "every clue fits",
+    "mark": "right"
+   },
+   {
+    "text": "Game night.",
+    "tag": "why hide?",
+    "mark": "wrong"
+   }
+  ],
+  "verdict": "B: a surprise party.",
+  "why": "Candles alone could be anything. Hiding plus “she's parking” gives it away.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_squirrel",
+  "end2": "playgisthunt.com",
+  "seed": "ps10"
+ },
+ {
+  "id": "ps11",
+  "date": "2026-11-22T13:30",
+  "style": "Same story",
+  "eyebrow": "HEADLINE HUNT · SAME STORY",
+  "question": "Same story?",
+  "label": "EXAMPLE HEADLINES",
+  "options": [
+   {
+    "text": "Rain delays opening of city pool",
+    "tag": "opening pushed back",
+    "mark": "right"
+   },
+   {
+    "text": "City pool opening pushed back by rain",
+    "tag": "opening pushed back",
+    "mark": "right"
+   }
+  ],
+  "verdict": "Same story.",
+  "why": "Different words, same facts: rain, pool, later opening. That's a fair retelling.",
+  "end1": "Headline Hunt: real headlines, retold. Spot the change.",
+  "art": "autumn_mushroom",
+  "end2": "playgisthunt.com",
+  "seed": "ps11"
+ },
+ {
+  "id": "ps12",
+  "date": "2026-11-22T19:30",
+  "style": "Exact fit",
+  "eyebrow": "GIST HUNT · EXACT FIT",
+  "question": "Which fits every part?",
+  "context": {
+   "title": "MATCHING CONDITION · EXAMPLE",
+   "lines": [
+    "Ground floor, quiet, dogs welcome."
+   ]
+  },
+  "options": [
+   {
+    "text": "Ground floor · quiet street · no pets",
+    "tag": "no dogs",
+    "mark": "wrong"
+   },
+   {
+    "text": "Top floor · quiet · dogs welcome",
+    "tag": "not ground floor",
+    "mark": "wrong"
+   },
+   {
+    "text": "Ground-level flat · calm street · pets OK",
+    "tag": "all three, reworded",
+    "mark": "right"
+   }
+  ],
+  "verdict": "C fits every part.",
+  "why": "C says it differently: ground-level, calm, pets OK. Same three things.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_sleepy_fox",
+  "end2": "playgisthunt.com",
+  "seed": "ps12"
+ },
+ {
+  "id": "ps13",
+  "date": "2026-11-23T13:30",
+  "style": "In order",
+  "eyebrow": "GIST HUNT · IN ORDER",
+  "question": "Put these in order.",
+  "label": "EXAMPLE · THE TIME WORDS DECIDE",
+  "options": [
+   {
+    "text": "By then, the cake was gone.",
+    "tag": "3rd",
+    "mark": "right"
+   },
+   {
+    "text": "Sam showed up late.",
+    "tag": "2nd",
+    "mark": "right"
+   },
+   {
+    "text": "Everyone sang, then cut the cake.",
+    "tag": "1st",
+    "mark": "right"
+   }
+  ],
+  "verdict": "C, B, A.",
+  "why": "'Late' puts Sam after the singing. 'By then' puts the empty plate last.",
+  "end1": "Six playstyles. One free Daily a day.",
+  "art": "autumn_scarecrow",
+  "end2": "playgisthunt.com",
+  "seed": "ps13"
+ },
+ {
+  "id": "ps14",
+  "date": "2026-11-23T19:30",
+  "style": "Stronger claim",
+  "eyebrow": "HEADLINE HUNT · STRONGER CLAIM",
+  "question": "Which claims more?",
+  "label": "EXAMPLE HEADLINES",
+  "options": [
+   {
+    "text": "Officials expect the bridge to reopen soon",
+    "tag": "a hope",
+    "mark": "plain"
+   },
+   {
+    "text": "Bridge reopens Monday",
+    "tag": "a fact, with a date",
+    "mark": "right"
+   }
+  ],
+  "verdict": "B claims more.",
+  "why": "'Expect' and 'soon' hedge twice. B states it as done, with a date.",
+  "end1": "Headline Hunt: real headlines, retold. Spot the change.",
+  "art": "autumn_harvest_friends",
+  "end2": "playgisthunt.com",
+  "seed": "ps14"
+ }
+]
