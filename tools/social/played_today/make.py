@@ -71,8 +71,8 @@ def render(i, slot, item1, item2, out):
         lines = ["have you played", "your Gist Hunt today?"]
         foot = "3 questions · same puzzle for everyone"
     else:
-        lines = ["the new Gist is up.", "have you played yet?"]
-        foot = "new puzzle every night at 7 pm ET"
+        lines = ["did you do", "today's Gist yet?"]
+        foot = "a new puzzle every day"
     f = PB(sc(78))
     y = sc(120)
     for ln in lines:
@@ -110,6 +110,6 @@ if __name__ == '__main__':
     for i, (dt, a, b) in enumerate(MORNING):
         fn = f"pt_{dt}_am.jpg"; render(i, 'am', a, b, 'out/' + fn); meta.append(dict(date=dt, slot='am', items=[a, b], file=fn))
     for i, (dt, a, b) in enumerate(EVENING):
-        fn = f"pt_{dt}_pm.jpg"; render(i + 3, 'pm', a, b, 'out/' + fn); meta.append(dict(date=dt, slot='pm', items=[a, b], file=fn))
+        fn = f"pt_{dt}_pm2.jpg"; render(i + 3, 'pm', a, b, 'out/' + fn); meta.append(dict(date=dt, slot='pm', items=[a, b], file=fn))
     json.dump(meta, open('out/meta.json', 'w'), indent=1, ensure_ascii=False)
     print(len(meta))
