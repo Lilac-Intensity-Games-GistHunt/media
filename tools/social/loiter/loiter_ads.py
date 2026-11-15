@@ -203,9 +203,9 @@ def frame(c, t):
         d = ImageDraw.Draw(img, "RGBA"); d.rectangle((0, 0, W, H), fill=(*c["field"], int(150 * k)))
         box = Image.new("RGBA", (900, 470), (0, 0, 0, 0)); bd = ImageDraw.Draw(box)
         bd.rounded_rectangle((0, 16, 892, 466), 48, fill=INK); bd.rounded_rectangle((0, 0, 892, 450), 48, fill=PAPER, outline=INK, width=7)
-        f1 = sans(46, False); l1 = "Vote anonymously on"; bd.text(((892 - bd.textlength(l1, font=f1)) / 2, 56), l1, font=f1, fill=INK)
+        f1 = sans(46, False); l1 = "Vote on"; bd.text(((892 - bd.textlength(l1, font=f1)) / 2, 56), l1, font=f1, fill=INK)
         wm = wordmark(120); box.paste(wm, (int((892 - wm.width) / 2), 120), wm)
-        f2 = sans(40, False); l2 = "We don’t keep which way you answered."; bd.text(((892 - bd.textlength(l2, font=f2)) / 2, 290), l2, font=f2, fill=(90, 90, 100))
+        f2 = sans(40, False); l2 = "Anon votes."; bd.text(((892 - bd.textlength(l2, font=f2)) / 2, 290), l2, font=f2, fill=(90, 90, 100))
         f3 = sans(50); l3 = "playgisthunt.com"; bd.text(((892 - bd.textlength(l3, font=f3)) / 2, 360), l3, font=f3, fill=INK)
         put(img, box, W / 2, 960 + (1 - k) * 80, alpha=k)
     return img

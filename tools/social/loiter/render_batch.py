@@ -9,7 +9,7 @@ def prep(i, c):
     return d
 def render_one(i):
     c = prep(i, json.load(open('week23_cards.json'))[i])
-    outdir = os.path.join(L.HERE, 'out23b', f'c{i+1:02d}'); os.makedirs(outdir, exist_ok=True)
+    outdir = os.path.join(L.HERE, 'out23c', f'c{i+1:02d}'); os.makedirs(outdir, exist_ok=True)
     final = os.path.join(outdir, 'reel.mp4')
     if os.path.exists(final): return i
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{L.W}x{L.H}", "-r", str(L.FPS),
