@@ -13,6 +13,33 @@ ICON = Image.open('icon512.png').convert('RGB')
 
 def s(v): return int(round(v * S))
 
+EMOJI_FONT = ImageFont.truetype('/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf', 109)
+def is_emoji(ch): return ord(ch) >= 0x1F000 or ch in '\u2764\u2728\u2615'
+def _emoji_img(ch, px):
+    im = Image.new('RGBA', (136, 128), (0, 0, 0, 0))
+    ImageDraw.Draw(im).text((0, 0), ch, font=EMOJI_FONT, embedded_color=True)
+    im = im.crop(im.getbbox() or (0, 0, 1, 1))
+    k = px / max(im.height, 1)
+    return im.resize((max(1, int(im.width * k)), max(1, int(im.height * k))), Image.LANCZOS)
+_EC = {}
+def emoji_img(c, px):
+    k = (c, px)
+    if k not in _EC: _EC[k] = _emoji_img(c, px)
+    return _EC[k]
+def text_w(t, f):
+    """width in final (supersampled) px"""
+    em = int(f.size * 1.05)
+    return sum((emoji_img(c, em).width + f.size * 0.1) if is_emoji(c) else f.getlength(c) for c in t if c != '\ufe0f')
+def draw_line(im, x, y, t, f, fill):
+    d = ImageDraw.Draw(im); em = int(f.size * 1.05)
+    for c in t:
+        if c == '\ufe0f': continue
+        if is_emoji(c):
+            e = emoji_img(c, em); im.alpha_composite(e, (int(x), int(y + f.size * 0.1))); x += e.width + f.size * 0.1
+        else:
+            d.text((x, y), c, font=f, fill=fill); x += f.getlength(c)
+
+
 def avatar(size):
     a = ICON.resize((s(size), s(size)), Image.LANCZOS)
     m = Image.new('L', a.size, 0); ImageDraw.Draw(m).ellipse([0, 0, a.size[0] - 1, a.size[1] - 1], fill=255)
@@ -22,7 +49,7 @@ def wrap(text, f, maxw):
     words, out, cur = text.split(' '), [], ''
     for w in words:
         t = (cur + ' ' + w).strip()
-        if f.getlength(t) <= maxw * S or not cur: cur = t
+        if text_w(t, f) <= maxw * S or not cur: cur = t
         else: out.append(cur); cur = w
     out.append(cur); return out
 
@@ -45,11 +72,24 @@ def render(name, bg, time_label, msgs, receipt, typing=False):
     # time label
     y = y0 + 270
     d.text((s((x0 + x1) / 2), s(y)), time_label, font=MED(30), fill=GREY, anchor='ma'); y += 70
-    f = REG(52); maxw = 600; pad_x, pad_y, lh = 36, 24, 64
+    f = REG(52); maxw = 690; pad_x, pad_y, lh = 36, 24, 64
     last_them_y = None
     for i, (who, text) in enumerate(msgs):
+        if all(is_emoji(c) for c in text if c != '\ufe0f'):
+            big = s(118); x = s(x0 + 130) if who == 'them' else None
+            ems = [emoji_img(c, big) for c in text if c != '\ufe0f']
+            tw_e = sum(e.width for e in ems) + s(10) * (len(ems) - 1)
+            if x is None: x = s(x1 - 40) - tw_e
+            for e in ems:
+                im.alpha_composite(e, (int(x), s(y))); x += e.width + s(10)
+            d = ImageDraw.Draw(im)
+            nxt = msgs[i + 1][0] if i + 1 < len(msgs) else None
+            if who == 'them' and nxt != 'them' and not typing:
+                im.alpha_composite(avatar(76), (s(x0 + 36), s(y + 118 - 76))); d = ImageDraw.Draw(im)
+            y += 118 + (14 if nxt == who else 34)
+            continue
         ls = wrap(text, f, maxw)
-        tw = max(f.getlength(l) for l in ls) / S
+        tw = max(text_w(l, f) for l in ls) / S
         bw, bh = tw + 2 * pad_x, len(ls) * lh + 2 * pad_y - 8
         if who == 'them':
             bx = x0 + 130
@@ -59,7 +99,8 @@ def render(name, bg, time_label, msgs, receipt, typing=False):
             col, tc = ME, WHITE
         d.rounded_rectangle([s(bx), s(y), s(bx + bw), s(y + bh)], s(min(46, bh / 2)), fill=col)
         for k, l in enumerate(ls):
-            d.text((s(bx + pad_x), s(y + pad_y + k * lh)), l, font=f, fill=tc)
+            draw_line(im, s(bx + pad_x), s(y + pad_y + k * lh), l, f, tc)
+        d = ImageDraw.Draw(im)
         nxt = msgs[i + 1][0] if i + 1 < len(msgs) else None
         if who == 'them' and nxt != 'them' and not typing:
             im.alpha_composite(avatar(76), (s(x0 + 36), s(y + bh - 76))); d = ImageDraw.Draw(im)
